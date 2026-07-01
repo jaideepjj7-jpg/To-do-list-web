@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>list page </title>
+        <link rel="stylesheet"href="{{url_for('static',filename='list.css')}}">
+    </head>
+    <body>
+        <h1 id="heading"align="center"><b>WELCOME DEAR, I AM LIST</b></h1><br><br>
+        <p id="p">Welcome dear ,I am list you can add your daily tasks here .when you are working you set your task on working and when you complete this task then set it on completed. you can delete a task if you want and also clear the list to write next tasks .It will help you in time management in you daily routine.</p><br>
+        <hr>
+        <center>
+        <table width="50%" height="200px"border="3"bordercolor="#C09BD8"cellspacing="7"cellpadding="5"id="table">
+            <caption>To-Do list</caption>
+            <tr><th>S no.</th><th>Task</th><th>Status</th></tr>
+        </table><br>
+        <button id="add"class="btn">Add Task</button><br>
+        <button id="delete"class="btn">Clear List</button><br>
+        <button id="delRow"class="btn">Delete Row</button>
+        </center>
+        <script src="{{url_for('static',filename='list.js')}}"></script>
+    </body>
+</html>

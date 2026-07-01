@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Timer</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#EBC3DB;
+    color:#fff;
+    display:flex;
+    flex-direction: column;
+    min-height:100vh;
+}
+
+.container{
+    text-align:center;
+}
+
+.progress{
+    position:relative;
+    width:260px;
+    height:260px;
+    margin:auto;
+}
+
+svg{
+    transform:rotate(-90deg);
+}
+
+.bg{
+    fill:none;
+    stroke:#333;
+    stroke-width:12;
+}
+
+.bar{
+    fill:none;
+    stroke:#C09BD8;
+    stroke-width:12;
+    stroke-linecap:round;
+    stroke-dasharray:628;
+    stroke-dashoffset:628;
+}
+
+.time{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:34px;
+    font-weight:bold;
+}
+
+.inputs{
+    margin-top:25px;
+}
+
+input{
+    width:70px;
+    padding:10px;
+    margin:5px;
+    text-align:center;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+}
+
+.buttons{
+    margin-top:20px;
+}
+
+button{
+    background-color: #C09BD8;
+    padding:12px 18px;
+    margin:5px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+#heading{
+    color: #9F84BD;
+}
+#p{
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.start{background:#9F84BD;color:white;}
+.stop{background:#9F84BD;color:white;}
+.reset{background:#9F84BD;color:white;}
+</style>
+</head>
+<body>
+<h1 id="heading"align="center"><b>WELCOME DEAR ,I AM TIMER.</b></h1><br><br>
+<p id="p"align="left">I am timer you can set hours, minutes and seconds.when the time is over your device vibrate. You can start with start btn and stop with stop btn and reset btn reset the timer. It will help in study, writing speed etc </p><br><br>
+<div class="container">
+
+<div class="progress">
+
+<svg width="260" height="260">
+
+<circle class="bg" cx="130" cy="130" r="100"></circle>
+
+<circle id="bar" class="bar" cx="130" cy="130" r="100"></circle>
+
+</svg>
+
+<div id="display" class="time">00:00:00</div>
+
+</div>
+
+<div class="inputs">
+<input id="hours" type="number" min="0" placeholder="HH">
+<input id="minutes" type="number" min="0" max="59" placeholder="MM">
+<input id="seconds" type="number" min="0" max="59" placeholder="SS">
+</div>
+
+<div class="buttons">
+<button class="start" onclick="startTimer()">START</button>
+<button class="stop" onclick="stopTimer()">STOP</button>
+<button class="reset" onclick="resetTimer()">RESET</button>
+</div>
+
+</div>
+
+<script>
+
+const bar=document.getElementById("bar");
+const display=document.getElementById("display");
+
+const CIRCUMFERENCE=628;
+
+let totalTime=0;
+let timeLeft=0;
+let timer=null;
+let running=false;
+
+function format(sec){
+
+let h=Math.floor(sec/3600);
+let m=Math.floor((sec%3600)/60);
+let s=sec%60;
+
+return String(h).padStart(2,"0")+":"+
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
+
+}
+
+function updateRing(){
+
+let progress=timeLeft/totalTime;
+
+bar.style.transition="stroke-dashoffset 1s linear";
+bar.style.strokeDashoffset=CIRCUMFERENCE-(progress*CIRCUMFERENCE);
+
+}
+
+function startCountdown(){
+
+timer=setInterval(()=>{
+
+timeLeft--;
+
+display.innerHTML=format(timeLeft);
+
+updateRing();
+
+if(timeLeft<=0){
+
+clearInterval(timer);
+timer=null;
+running=false;
+
+display.innerHTML="00:00:00";
+
+bar.style.strokeDashoffset=628;
+
+// Strong vibration
+if(navigator.vibrate){
+navigator.vibrate([
+1000,300,
+1000,300,
+1000,300,
+1000
+]);
+}
+
+}
+
+},1000);
+
+}
+
+function startTimer(){
+
+if(running)return;
+
+let h=parseInt(hours.value)||0;
+let m=parseInt(minutes.value)||0;
+let s=parseInt(seconds.value)||0;
+
+if(totalTime==0){
+
+totalTime=h*3600+m*60+s;
+
+if(totalTime<=0){
+alert("Please enter time.");
+return;
+}
+
+timeLeft=totalTime;
+
+display.innerHTML=format(timeLeft);
+
+}
+
+running=true;
+
+// Reset ring
+bar.style.transition="none";
+bar.style.strokeDashoffset=628;
+
+// Force redraw
+bar.getBoundingClientRect();
+
+// 2-second fill animation
+bar.style.transition="stroke-dashoffset 2s linear";
+bar.style.strokeDashoffset=0;
+
+// Start countdown after animation
+setTimeout(()=>{
+
+if(running){
+
+startCountdown();
+
+}
+
+},2000);
+
+}
+
+function stopTimer(){
+
+running=false;
+
+clearInterval(timer);
+
+timer=null;
+
+}
+
+function resetTimer(){
+
+running=false;
+
+clearInterval(timer);
+
+timer=null;
+
+totalTime=0;
+timeLeft=0;
+
+display.innerHTML="00:00:00";
+
+bar.style.transition="none";
+bar.style.strokeDashoffset=628;
+
+hours.value="";
+minutes.value="";
+seconds.value="";
+
+}
+
+</script>
+
+</body>
+</html>

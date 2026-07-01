@@ -1,0 +1,30 @@
+<!<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TO DO LIST APP
+        </title>
+        <link rel="stylesheet"href="{{url_for('static',filename='index.css')}}">
+    </head>
+    <body>
+        <h1 align="center">WELCOME TO OUR <b class="do">TO-DO APP</b></h1><br><br>
+        <p id="p">welcome to our website .In this website you can make a TO-DO LIST means write your daily works and set time and we rember you by vibrating you phone.you can also set a timer in this app.</p><br>
+        <center>
+            <hr>
+            <div id="div"align="center">
+                <a href="/list" class="btn"><b align="center">TO-DO LIST.</b></a>
+                <a href="/timer"class="btn"><b>SET TIMER</b></a><br>
+            </div>
+        </center><br>
+        <hr align="center">
+        <dl>
+            <dt class="di"><b>TO-DO LIST</b></dt>
+            <dd id="p">In TO-DO list you can add your daily work and after adding when you are working set it on working and after completing set it completed and when you complete all tasks then clear all the list then rewrite your daily tasks.</dd>
+            <br>
+            <dt class="di"><b>TIMER</b></dt>
+            <dd id="p">In timer you can set a timer. you can start, stop and reset the timer. it helps in study,play-time, writing-speed etc.</dd>
+        </dl><br>
+        <hr align="center">
+        <img src="{{url_for('static',filename='to-do list.jpg')}}"alt="list photo"id="photo"align="center">
+    </body>
+</html>

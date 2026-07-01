@@ -1,0 +1,45 @@
+.do{
+    color: #C09BD8;
+    font-size: 50px;
+    text-shadow: 0px 5px 5px #777;
+}
+p{
+    font-size: 20px;
+}
+.btn{
+    justify-content: center;
+    display: flex;
+    font-size: 20px;
+    color: white;
+    margin: 20px;
+    padding: 10px;
+    background-color: #9F84BD;
+    box-shadow: 0px 15px 15px gray;
+    text-shadow: 0px 5px 5px #777;
+}
+#div{
+    width: 700px;
+    height: 150px;
+    background-color: #C09BD8;
+    padding: 10px;
+    margin: 20px;
+    box-shadow: 0px 15px 15px gray;
+    text-shadow: 0px 2px 2px #777;
+}
+.di{
+    font-size: 30px;
+}
+hr{
+    height: 2px;
+    width: 80%;
+    align-self: center;
+}
+body{
+    background-color: #EBC3DB;
+}
+#photo{
+    width: 800px;
+    height: 500px;
+    background-size: cover;
+    margin-right: 10px;
+}
